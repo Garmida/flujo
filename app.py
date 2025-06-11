@@ -26,9 +26,9 @@ if uploaded_file is not None:
         if ext == 'csv':
             df_datos = pd.read_csv(uploaded_file, sep=';', decimal=',')
         elif ext in ['xls', 'xlsx']:
-            df_datos = pd.read_excel(uploaded_file)
+            df_datos = pd.read_excel(uploaded_file, sheet_name="Base Madre")
         elif ext == 'ods':
-            df_datos = pd.read_excel(uploaded_file, engine='odf')
+            df_datos = pd.read_excel(uploaded_file, sheet_name="Base Madre", engine='odf')
         else:
             st.error("❌ Formato no soportado.")
             st.stop()
