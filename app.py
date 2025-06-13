@@ -86,7 +86,7 @@ if menu == "Carga de datos":
         else:
             st.error("❌ Formato no soportado.")
             st.stop()
-        st.success("✅ Archivo cargado correctamente.")
+        st.success("✅ Archivo cargado correctamente. Puede continuar con las estadísticas")
         st.session_state.df = df
         st.session_state.uploaded = uploaded
     except Exception as e:
@@ -334,11 +334,11 @@ elif menu == "Estadística demoras":
                         
                         # ═══ COLOREAR HEADERS ═══
                         colors_header = {
-                            'Franja': '#ffffff',    
-                            'Tiempo': '#ffffff',    
-                            'Pacientes': '#ffffff', 
-                            'Médicos': '#ffffff',   
-                            'Triage': '#ffffff'     
+                            'Franja': '#CDCECF',    
+                            'Tiempo': '#CDCECF',    
+                            'Pacientes': '#CDCECF', 
+                            'Médicos': '#CDCECF',   
+                            'Triage': '#CDCECF'     
                         }
                         
                         for col_idx, header in enumerate(headers):
