@@ -203,6 +203,7 @@ elif menu == "Estadística demoras":
                     plt.close()
 
                 # 6) Descargar Excel con colores 
+                st.subheader("⬇️ Descargar Excel")
                 buf_xl = io.BytesIO()
                 with pd.ExcelWriter(buf_xl, engine='xlsxwriter') as writer:
                     pivot.to_excel(writer, sheet_name='Informe', index=True)
