@@ -121,9 +121,14 @@ elif menu == "Estadística demoras":
                     dff = dff[dff['Responsable'].isin(resp_sel)]
                 dff['Fecha'] = pd.to_datetime(dff['Fecha'], format='%d/%m/%y', errors='coerce')\
                             .dt.strftime('%d/%m/%y')
-                aggfunc = 'max' if demora_tipo=='Máxima' else 'mean'
-                tmp = dff.groupby(['Fecha','time_slot_ini'])['Tiempo_espera__min'].agg(aggfunc).reset_index(name='demora_val')
-                df_final = tmp.groupby(['Fecha','time_slot_ini'])['demora_val'].sum().reset_index(name='demora_maxima')
+                if demora_tipo == 'Máxima':
+                    # Tomar la demora máxima de cada flujo, sumar entre flujos
+                    tmp = dff.groupby(['Fecha', 'time_slot_ini', 'Flujo_Pacientes'])['Tiempo_espera__min'].max().reset_index()
+                    df_final = tmp.groupby(['Fecha', 'time_slot_ini'])['Tiempo_espera__min'].sum().reset_index(name='demora_maxima')
+                elif demora_tipo == 'Promedio':
+                    # Tomar el promedio de cada flujo, sumar entre flujos
+                    tmp = dff.groupby(['Fecha', 'time_slot_ini', 'Flujo_Pacientes'])['Tiempo_espera__min'].mean().reset_index()
+                    df_final = tmp.groupby(['Fecha', 'time_slot_ini'])['Tiempo_espera__min'].sum().reset_index(name='demora_maxima')
 
                 # Pacientes
                 dff_med = dff if len(flujo_sel)==1 else dff[dff['Grupo']=='Médico']
